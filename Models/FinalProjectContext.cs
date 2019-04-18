@@ -9,8 +9,8 @@ namespace Final_Project.Models
         {
         }
 
-        public DbSet<Final_Project.Models.Review> Category {get; set;}
-        public DbSet<Final_Project.Models.Recipe> Movie { get; set; }
+        public DbSet<Final_Project.Models.Category> Category {get; set;}
+        public DbSet<Final_Project.Models.Recipe> Recipe { get; set; }
         public DbSet<Final_Project.Models.Review> Review {get; set;}
     }
 }

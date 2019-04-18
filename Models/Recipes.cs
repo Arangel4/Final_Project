@@ -13,7 +13,7 @@ namespace Final_Project.Models
         [Required]
         public int Title {get; set;}
         public string Ingredients {get; set;}
-        public Lazy<Review> Reviews {get; set;} // Navigation property. A recipe can have many reviews.
+        public List<Review> Reviews {get; set;} // Navigation property. A recipe can have many reviews.
         public Category Category {get; set;} // Navigation property. Each recipe belongs to one category.
     }
 }
