@@ -11,9 +11,11 @@ namespace Final_Project.Models
 
         [StringLength(60, MinimumLength = 3)]
         [Required]
-        public int Title {get; set;}
+        public string Title {get; set;}
         public string Ingredients {get; set;}
+        public string Instructions {get; set;}
         public List<Review> Reviews {get; set;} // Navigation property. A recipe can have many reviews.
+        public int CategoryID {get; set;}
         public Category Category {get; set;} // Navigation property. Each recipe belongs to one category.
     }
 }
