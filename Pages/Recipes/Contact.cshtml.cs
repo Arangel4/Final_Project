@@ -34,7 +34,7 @@ namespace Final_Project.Pages.Recipe
         [Display(Name = "Message")]
         public string Message {get; set;}
 
-        public NewsletterModel(ILogger<NewsletterModel> log)
+        public ContactModel(ILogger<ContactModel> log)
         {
             _log = log;
         }

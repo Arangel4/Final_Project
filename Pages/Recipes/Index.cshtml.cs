@@ -22,6 +22,14 @@ namespace Final_Project.Pages.Recipes
         public IList<Recipe> Recipe { get;set; }
 
         [BindProperty(SupportsGet = true)]
+        public int PageNum {get; set;} = 1;
+        public int PageSize {get; set;} = 5;
+
+        [BindProperty(SupportsGet = true)]
+        public string CurrentSort {get; set;}
+        public SelectList SortList {get; set;}
+
+        [BindProperty(SupportsGet = true)]
         public string SearchString {get; set;}
 
         public SelectList Category {get; set;}
@@ -31,6 +39,36 @@ namespace Final_Project.Pages.Recipes
 
         public async Task OnGetAsync()
         {
+            var query = _context.Recipe.Select(r => r);
+            List<SelectListItem> sortItems = new List<SelectListItem> {
+                new SelectListItem { Text = "Title Ascending", Value = "first_asc" },
+                new SelectListItem { Text = "Title Descending", Value = "first_desc" },
+                new SelectListItem { Text = "Category Ascending", Value = "sec_asc" },
+                new SelectListItem { Text = "Category Descending", Value = "sec_desc" }
+            };
+            SortList = new SelectList(sortItems, "Value", "Text", CurrentSort);
+
+            switch (CurrentSort)
+            {
+                case "first_asc":
+                    query = query.OrderBy(r => r.Title);
+                    break;
+                case "first_desc":
+                    query = query.OrderByDescending(r => r.Title);
+                    break;
+                 case "sec_asc":
+                    query = query.OrderBy(r => r.CategoryName);
+                    break;
+                case "sec_desc":
+                    query = query.OrderByDescending(r => r.CategoryName);
+                    break;
+            }
+            Recipe = await recipe.ToListAsync();
+
+            Recipe = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
+
+            
+
             var categoryQuery = Category.Include(r => r.Recipe).OrderbBy(r => r.Category).Select(r => r.Category);
                                             
             var recipes = _context.Recipe.Include(r => r.Reviews).Select(r => r);

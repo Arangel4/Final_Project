@@ -21,11 +21,27 @@
     </p>
 </form>
 
+<form>
+    <p>
+        <select asp-for="CurrentSort" asp-items="Model.SortList">
+            <option value="">sort by...</option>
+        </select>
+        <button type="submit">Sort</button>
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Title)
+                 @{
+                    var firstSort = "first_asc";
+                    if (Model.CurrentSort == "first_asc")
+                    {
+                        firstSort = "first_desc";
+                    }
+                }
+                <a asp-page="./Index" asp-route-CurrentSort="@firstSort">@Html.DisplayNameFor(model => model.Recipe[0].Title)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Recipe[0].Category)
@@ -78,3 +94,24 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = "";
+    if (Model.PageNum <= 1)
+    {
+        prevDisabled = "disabled";
+    }
+
+    var nextDisabled = "";
+    if (Model.PageNum >= 6) 
+    {
+        nextDisabled = "disabled";
+    }
+}
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item @prevDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum - 1)" a asp-route-CurrentSort="@Model.CurrentSort" >Previous</a></li>
+    <li class="page-item @nextDisabled"><a class="page-link" asp-page="./Index" asp-route-PageNum="@(Model.PageNum + 1)"a asp-route-CurrentSort="@Model.CurrentSort" >Next</a></li>
+  </ul>
+</nav>
