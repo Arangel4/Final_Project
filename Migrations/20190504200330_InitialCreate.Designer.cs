@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Project.Migrations
 {
     [DbContext(typeof(FinalProjectContext))]
-    [Migration("20190418203404_InitialCreate")]
+    [Migration("20190504200330_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,14 +22,11 @@ namespace Final_Project.Migrations
                     b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CategoryName");
+
                     b.Property<string>("Description");
 
-                    b.Property<int>("RecipeID");
-
                     b.HasKey("CategoryID");
-
-                    b.HasIndex("RecipeID")
-                        .IsUnique();
 
                     b.ToTable("Category");
                 });
@@ -39,12 +36,21 @@ namespace Final_Project.Migrations
                     b.Property<int>("RecipeID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CategoryID");
+
+                    b.Property<string>("CategoryName");
+
                     b.Property<string>("Ingredients");
 
-                    b.Property<int>("Title")
+                    b.Property<string>("Instructions");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasMaxLength(60);
 
                     b.HasKey("RecipeID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Recipe");
                 });
@@ -65,11 +71,11 @@ namespace Final_Project.Migrations
                     b.ToTable("Review");
                 });
 
-            modelBuilder.Entity("Final_Project.Models.Category", b =>
+            modelBuilder.Entity("Final_Project.Models.Recipe", b =>
                 {
-                    b.HasOne("Final_Project.Models.Recipe")
-                        .WithOne("Category")
-                        .HasForeignKey("Final_Project.Models.Category", "RecipeID")
+                    b.HasOne("Final_Project.Models.Category", "Category")
+                        .WithMany("Recipes")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

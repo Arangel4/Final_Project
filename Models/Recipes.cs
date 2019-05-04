@@ -16,6 +16,7 @@ namespace Final_Project.Models
         public string Instructions {get; set;}
         public List<Review> Reviews {get; set;} // Navigation property. A recipe can have many reviews.
         public int CategoryID {get; set;}
+        public string CategoryName {get; set;}
         public Category Category {get; set;} // Navigation property. Each recipe belongs to one category.
     }
 }

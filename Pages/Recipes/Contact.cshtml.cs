@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Final_Project.Models;
 
-namespace Final_Project.Pages.Recipe
+namespace Final_Project.Pages.Recipes
 {
     public class ContactModel : PageModel
     {

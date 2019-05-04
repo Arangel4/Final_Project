@@ -7,36 +7,39 @@ namespace Final_Project.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Recipe",
-                columns: table => new
-                {
-                    RecipeID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<int>(maxLength: 60, nullable: false),
-                    Ingredients = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recipe", x => x.RecipeID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
                 {
                     CategoryID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(nullable: true),
-                    RecipeID = table.Column<int>(nullable: false)
+                    CategoryName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.CategoryID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recipe",
+                columns: table => new
+                {
+                    RecipeID = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(maxLength: 60, nullable: false),
+                    Ingredients = table.Column<string>(nullable: true),
+                    Instructions = table.Column<string>(nullable: true),
+                    CategoryID = table.Column<int>(nullable: false),
+                    CategoryName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipe", x => x.RecipeID);
                     table.ForeignKey(
-                        name: "FK_Category_Recipe_RecipeID",
-                        column: x => x.RecipeID,
-                        principalTable: "Recipe",
-                        principalColumn: "RecipeID",
+                        name: "FK_Recipe_Category_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Category",
+                        principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -61,10 +64,9 @@ namespace Final_Project.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Category_RecipeID",
-                table: "Category",
-                column: "RecipeID",
-                unique: true);
+                name: "IX_Recipe_CategoryID",
+                table: "Recipe",
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_RecipeID",
@@ -75,13 +77,13 @@ namespace Final_Project.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
                 name: "Review");
 
             migrationBuilder.DropTable(
                 name: "Recipe");
+
+            migrationBuilder.DropTable(
+                name: "Category");
         }
     }
 }

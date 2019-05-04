@@ -19,7 +19,7 @@ namespace Final_Project.Pages.Recipes
             _context = context;
         }
 
-        public IList<Recipe> Recipe { get;set; }
+        public IList<Recipe> Recipe { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int PageNum {get; set;} = 1;
@@ -28,17 +28,12 @@ namespace Final_Project.Pages.Recipes
         [BindProperty(SupportsGet = true)]
         public string CurrentSort {get; set;}
         public SelectList SortList {get; set;}
-
-        [BindProperty(SupportsGet = true)]
-        public string SearchString {get; set;}
-
-        public SelectList Category {get; set;}
-        [BindProperty(SupportsGet = true)]
-
-        public string RecipeCategory {get; set;}
+        public string CategoryName {get; set;}
 
         public async Task OnGetAsync()
         {
+            var recipes = _context.Recipe.Include(r => r.Reviews).Include(r => r.Category).Select(r => r);
+
             var query = _context.Recipe.Select(r => r);
             List<SelectListItem> sortItems = new List<SelectListItem> {
                 new SelectListItem { Text = "Title Ascending", Value = "first_asc" },
@@ -57,33 +52,15 @@ namespace Final_Project.Pages.Recipes
                     query = query.OrderByDescending(r => r.Title);
                     break;
                  case "sec_asc":
-                    query = query.OrderBy(r => r.CategoryName);
+                    query = query.OrderBy(r => r.Category);
                     break;
                 case "sec_desc":
-                    query = query.OrderByDescending(r => r.CategoryName);
+                    query = query.OrderByDescending(r => r.Category);
                     break;
             }
-            Recipe = await recipe.ToListAsync();
+            var Recipe = await recipes.ToListAsync();
 
             Recipe = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
-
-            
-
-            var categoryQuery = Category.Include(r => r.Recipe).OrderbBy(r => r.Category).Select(r => r.Category);
-                                            
-            var recipes = _context.Recipe.Include(r => r.Reviews).Select(r => r);
-
-            if (!string.IsNullOrEmpty(SearchString))
-            {
-                recipes = recipes.Where(s => s.Title.Contains(SearchString));
-            }
-
-            if (!string.IsNullOrEmpty(RecipeCategory))
-            {
-                recipes = recipes.Where(x => x.CategoryName == RecipeCategory);
-            }
-            Category = new SelectList(await categoryQuery.Distinct().ToListAsync());
-            Recipe = await recipes.ToListAsync();
         }
     }
 }

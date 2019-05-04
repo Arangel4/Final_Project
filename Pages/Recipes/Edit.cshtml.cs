@@ -53,7 +53,7 @@ namespace Final_Project.Pages.Recipes
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RecipeExists(Recipe.RecipeID))
+                if (!_context.Recipe.Any(r => r.RecipeID == Recipe.RecipeID))
                 {
                     return NotFound();
                 }

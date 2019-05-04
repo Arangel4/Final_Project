@@ -18,7 +18,6 @@ namespace Final_Project.Pages.Recipes
             _context = context;
         }
 
-        [BindProperty]
         public Recipe Recipe { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)

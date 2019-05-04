@@ -23,8 +23,7 @@ namespace Final_Project.Pages.Recipes
             return Page();
         }
 
-        [BindProperty]
-        public Recipe Recipe { get; set; }
+        public Recipe Recipes { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,7 +32,7 @@ namespace Final_Project.Pages.Recipes
                 return Page();
             }
 
-            _context.Recipe.Add(Recipe);
+            // _context.Recipe.Add(Recipe);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
