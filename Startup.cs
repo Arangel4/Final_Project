@@ -34,7 +34,7 @@ namespace Final_Project
             });
 
         services.AddDbContext<FinalProjectContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("RecipeContext")));
+            options.UseSqlite(Configuration.GetConnectionString("FinalProjectContext")));
 
         services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -12,6 +12,9 @@ namespace Final_Project.Models
         [Range(1, 5)]
         [Required]
         public int Score {get; set;}
+
+        [Display(Name = "Recipe")]
+        [Required]
         public int RecipeID {get; set;} // Foreign Key
         public Recipe Recipe {get; set;} // Navigation property. Each review belongs to one recipe.
     }

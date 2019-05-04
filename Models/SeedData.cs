@@ -14,11 +14,6 @@ namespace Final_Project.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FinalProjectContext>>()))
             {
-                if (context.Recipe.Any())
-                {
-                    return;
-                }
-
                 context.Category.AddRange(
                     new Category
                     {
@@ -56,6 +51,11 @@ namespace Final_Project.Models
                         Description = "Desserts are the sweet dishes."
                     }
                 );
+
+                if (context.Recipe.Any())
+                {
+                    return;
+                }
 
                 context.Recipe.AddRange(
                     new Recipe
