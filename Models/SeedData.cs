@@ -38,7 +38,8 @@ namespace Final_Project.Models
                         Reviews = new List<Review> {
                             new Review {Score = 5},
                             new Review {Score = 4}
-                        }
+                        },
+                        Category = context.Category.Find(1)
                     }
                 );
                 context.SaveChanges();
