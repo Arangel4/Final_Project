@@ -14,6 +14,11 @@ namespace Final_Project.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<FinalProjectContext>>()))
             {
+                if (context.Category.Any())
+                {
+                    return;
+                }
+
                 context.Category.AddRange(
                     new Category
                     {

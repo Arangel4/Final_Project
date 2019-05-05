@@ -23,18 +23,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                 @{
+            @{
                     var firstSort = "first_asc";
                     if (Model.CurrentSort == "first_asc")
                     {
                         firstSort = "first_desc";
                     }
                 }
+            <th>
                 <a asp-page="./Index" asp-route-CurrentSort="@firstSort">@Html.DisplayNameFor(model => model.Recipe[0].Title)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Recipe[0].Category)
+                @Html.DisplayNameFor(model => model.Recipe[0].CategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Recipe[0].Ingredients)
@@ -55,16 +55,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ingredients)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Instructions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reviews)
             </td>
             <td>
                 @{
