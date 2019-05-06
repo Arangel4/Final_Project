@@ -38,8 +38,8 @@ namespace Final_Project.Pages.Recipes
             List<SelectListItem> sortItems = new List<SelectListItem> {
                 new SelectListItem { Text = "Title Ascending", Value = "first_asc" },
                 new SelectListItem { Text = "Title Descending", Value = "first_desc" },
-                new SelectListItem { Text = "Category Ascending", Value = "sec_asc" },
-                new SelectListItem { Text = "Category Descending", Value = "sec_desc" }
+                new SelectListItem { Text = "Category Name Ascending", Value = "sec_asc" },
+                new SelectListItem { Text = "Category Name Descending", Value = "sec_desc" }
             };
             SortList = new SelectList(sortItems, "Value", "Text", CurrentSort);
 
@@ -52,13 +52,13 @@ namespace Final_Project.Pages.Recipes
                     query = query.OrderByDescending(r => r.Title);
                     break;
                  case "sec_asc":
-                    query = query.OrderBy(r => r.Category);
+                    query = query.OrderBy(r => r.CategoryName);
                     break;
                 case "sec_desc":
-                    query = query.OrderByDescending(r => r.Category);
+                    query = query.OrderByDescending(r => r.CategoryName);
                     break;
             }
-            var Recipe = await recipes.ToListAsync();
+            Recipe = await recipes.ToListAsync();
 
             Recipe = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
         }
