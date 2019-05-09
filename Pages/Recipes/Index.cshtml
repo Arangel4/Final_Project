@@ -5,11 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Recipes</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<h1>All Recipes</h1>
 
 <form>
     <p>
@@ -17,6 +13,8 @@
             <option value="">sort by...</option>
         </select>
         <button type ="submit">Sort</button>
+        Title <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Search" />
     </p>
 </form>
 

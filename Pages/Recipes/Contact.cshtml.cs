@@ -48,7 +48,7 @@ namespace Final_Project.Pages.Recipes
 
         public void OnPost()
         {
-            _log.LogWarning($"{FirstName} {LastName} {Email} {Message}");
+            _log.LogWarning($"Subscriber Info: {FirstName} {LastName} {Email} Message: {Message}");
         }
     }
 }

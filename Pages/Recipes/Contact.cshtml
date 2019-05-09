@@ -37,13 +37,15 @@
                 </div>           
             </form>
         </div>
-        <div class = "col-8">
-            <img src ="image.gif" width = 150 lenght = 200>
-        </div>
     </div>
 </div>
 <hr />
-<div>
+<div> 
+    @if (Model.FirstName != null)
+    {
+        <p>Thank you for subscribing @Model.FirstName @Model.LastName</p>
+    }
+</div>
 
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

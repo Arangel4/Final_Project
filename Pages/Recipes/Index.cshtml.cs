@@ -22,6 +22,9 @@ namespace Final_Project.Pages.Recipes
         public IList<Recipe> Recipe { get; set; }
 
         [BindProperty(SupportsGet = true)]
+        public string SearchString {get; set;}
+
+        [BindProperty(SupportsGet = true)]
         public int PageNum {get; set;} = 1;
         public int PageSize {get; set;} = 5;
 
@@ -58,6 +61,12 @@ namespace Final_Project.Pages.Recipes
                     query = query.OrderByDescending(r => r.CategoryName);
                     break;
             }
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                recipes = recipes.Where(s => s.Title.Contains(SearchString));
+            }
+
             Recipe = await recipes.ToListAsync();
 
             Recipe = await query.Skip((PageNum-1)*PageSize).Take(PageSize).ToListAsync();
